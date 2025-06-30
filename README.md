@@ -1,5 +1,7 @@
 # PgBouncer Docker Image
 
+[![ci](https://github.com/viaeurope/pgbouncer/actions/workflows/main.yml/badge.svg)](https://github.com/viaeurope/pgbouncer/actions/workflows/main.yml)
+
 A lightweight Docker image for PgBouncer, a connection pooler for PostgreSQL databases.
 
 ## Quick Start
