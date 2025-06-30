@@ -6,11 +6,14 @@ ARG PGBOUNCER_CHECKSUM
 
 # Install dependencies
 RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y build-essential libevent-dev pkg-config libssl-dev libc-ares-dev libpam-modules
+  apt-get install --no-install-recommends -y \
+  build-essential libevent-dev pkg-config libssl-dev libc-ares-dev libpam-modules
 
-ADD --checksum=${PGBOUNCER_CHECKSUM} --link https://github.com/pgbouncer/pgbouncer/releases/download/pgbouncer_${PGBOUNCER_TAG}/pgbouncer-${PGBOUNCER_VERSION}.tar.gz pgbouncer-${PGBOUNCER_VERSION}.tar.gz
+ADD --checksum=${PGBOUNCER_CHECKSUM} --link \
+  https://github.com/pgbouncer/pgbouncer/releases/download/pgbouncer_${PGBOUNCER_TAG}/pgbouncer-${PGBOUNCER_VERSION}.tar.gz \
+  pgbouncer.tar.gz
 
-RUN tar -xvf pgbouncer-${PGBOUNCER_VERSION}.tar.gz && \
+RUN tar -xvf pgbouncer.tar.gz && \
   cd pgbouncer-${PGBOUNCER_VERSION} && \
   ./configure --prefix=/usr/local --with-pam && \
   make  && \
