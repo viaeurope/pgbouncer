@@ -22,8 +22,9 @@ RUN tar -xvf pgbouncer.tar.gz && \
 FROM ubuntu:24.04
 
 # Install runtime dependencies
+# we like scripting with ruby
 RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y libcares2 libevent-2.1-7t64 && \
+  apt-get install --no-install-recommends -y libcares2 libevent-2.1-7t64 ruby && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Create pgbouncer user and group
