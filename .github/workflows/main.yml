@@ -5,12 +5,7 @@ on:
 
 jobs:
   docker:
-    strategy:
-      matrix:
-        runs-on:
-          - depot-ubuntu-latest
-          - depot-ubuntu-latest-arm
-    runs-on: ${{ matrix.runs-on }}
+    runs-on: depot-ubuntu-latest
     permissions:
       contents: read
       id-token: write
@@ -30,6 +25,7 @@ jobs:
             PGBOUNCER_TAG=1_24_1
             PGBOUNCER_VERSION=1.24.1
           context: .
+          platforms: linux/amd64,linux/arm64
           project: ${{ secrets.DEPOT_PROJECT_ID }}
           push: true
           tags: ghcr.io/viaeurope/pgbouncer:1.24.1
