@@ -26,4 +26,16 @@ RUN apt-get update -qq && \
   apt-get install --no-install-recommends -y libcares2 libevent-2.1-7t64 && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+# Create pgbouncer user and group
+RUN groupadd -r pgbouncer && \
+  useradd -r -g pgbouncer -d /var/lib/pgbouncer -s /bin/bash pgbouncer && \
+  mkdir -p /var/lib/pgbouncer /var/log/pgbouncer /etc/pgbouncer && \
+  chown -R pgbouncer:pgbouncer /var/lib/pgbouncer /var/log/pgbouncer /etc/pgbouncer
+
 COPY --link --from=base /usr/local/bin/pgbouncer /usr/local/bin/pgbouncer
+
+# Switch to pgbouncer user
+USER pgbouncer
+
+# Set working directory
+WORKDIR /var/lib/pgbouncer
