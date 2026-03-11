@@ -21,11 +21,11 @@ jobs:
       - uses: depot/build-push-action@v1
         with:
           build-args: |
-            PGBOUNCER_CHECKSUM=sha256:da72a3aba13072876d055a3e58dd4aba4a5de4ed6148e73033185245598fd3e0
-            PGBOUNCER_TAG=1_24_1
-            PGBOUNCER_VERSION=1.24.1
+            PGBOUNCER_CHECKSUM=sha256:6e566ae92fe3ef7f6a1b9e26d6049f7d7ca39c40e29e7b38f6d5500ae15d8465
+            PGBOUNCER_TAG=1_25_1
+            PGBOUNCER_VERSION=1.25.1
           context: .
           platforms: linux/amd64,linux/arm64
           project: ${{ secrets.DEPOT_PROJECT_ID }}
           push: true
-          tags: ghcr.io/viaeurope/pgbouncer:1.24.1
+          tags: ghcr.io/viaeurope/pgbouncer:1.25.1
