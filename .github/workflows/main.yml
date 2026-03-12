@@ -21,15 +21,21 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Load build args from .env
+        id: dotenv
+        run: |
+          set -a
+          source .env
+          set +a
       - name: Build Docker image (no push on non-main)
         uses: depot/build-push-action@v1
         with:
           build-args: |
-            PGBOUNCER_CHECKSUM=sha256:290bad449e4580f0174d3677c26c1076d4ce5dd7ca116ae1fca10272ef74d10e
-            PGBOUNCER_TAG=1_25_0
-            PGBOUNCER_VERSION=1.25.0
+            PGBOUNCER_CHECKSUM=${{ env.PGBOUNCER_CHECKSUM }}
+            PGBOUNCER_TAG=${{ env.PGBOUNCER_TAG }}
+            PGBOUNCER_VERSION=${{ env.PGBOUNCER_VERSION }}
           context: .
           platforms: linux/amd64,linux/arm64
           project: ${{ secrets.DEPOT_PROJECT_ID }}
           push: ${{ github.ref == 'refs/heads/main' }}
-          tags: ${{ github.ref == 'refs/heads/main' && 'ghcr.io/viaeurope/pgbouncer:1.25.0' || '' }}
+          tags: ${{ github.ref == 'refs/heads/main' && format('ghcr.io/viaeurope/pgbouncer:{0}', env.PGBOUNCER_VERSION) || '' }}

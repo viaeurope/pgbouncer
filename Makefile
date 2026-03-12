@@ -1,9 +1,24 @@
 # Makefile for building the pgbouncer Docker image
 
-# Default build arguments (from GitHub workflow)
-PGBOUNCER_TAG ?= 1_25_0
-PGBOUNCER_VERSION ?= 1.25.0
-PGBOUNCER_CHECKSUM ?= sha256:290bad449e4580f0174d3677c26c1076d4ce5dd7ca116ae1fca10272ef74d10e
+# Load variables from .env (required)
+ifeq (,$(wildcard .env))
+$(error .env file is required. Create it with PGBOUNCER_TAG, PGBOUNCER_VERSION, and PGBOUNCER_CHECKSUM)
+endif
+
+include .env
+export
+
+# Ensure required build arguments are defined
+ifndef PGBOUNCER_TAG
+$(error PGBOUNCER_TAG is required in .env)
+endif
+ifndef PGBOUNCER_VERSION
+$(error PGBOUNCER_VERSION is required in .env)
+endif
+ifndef PGBOUNCER_CHECKSUM
+$(error PGBOUNCER_CHECKSUM is required in .env)
+endif
+
 IMAGE_NAME ?= pgbouncer:$(PGBOUNCER_VERSION)
 
 .PHONY: build
