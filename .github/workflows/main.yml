@@ -22,11 +22,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Load build args from .env
-        id: dotenv
         run: |
-          set -a
-          source .env
-          set +a
+          grep -E '^(PGBOUNCER_TAG|PGBOUNCER_VERSION|PGBOUNCER_CHECKSUM)=' .env >> "$GITHUB_ENV"
       - name: Build Docker image (no push on non-main)
         uses: depot/build-push-action@v1
         with:
