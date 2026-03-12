@@ -1,4 +1,4 @@
-FROM ubuntu:24.04 AS base
+FROM ubuntu:26.04 AS base
 
 ARG PGBOUNCER_TAG
 ARG PGBOUNCER_VERSION
@@ -7,7 +7,7 @@ ARG PGBOUNCER_CHECKSUM
 # Install dependencies
 RUN apt-get update -qq && \
   apt-get install --no-install-recommends -y \
-  build-essential libevent-dev pkg-config libssl-dev libc-ares-dev libpam-modules
+  build-essential libevent-dev pkg-config libssl-dev libc-ares-dev libpam-modules python3 pandoc
 
 ADD --checksum=${PGBOUNCER_CHECKSUM} --link \
   https://github.com/pgbouncer/pgbouncer/releases/download/pgbouncer_${PGBOUNCER_TAG}/pgbouncer-${PGBOUNCER_VERSION}.tar.gz \
@@ -19,7 +19,7 @@ RUN tar -xvf pgbouncer.tar.gz && \
   make  && \
   make install
 
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
 # Install runtime dependencies
 # we like scripting with ruby
