@@ -1,7 +1,10 @@
 name: ci
 
+
 on:
   push:
+    branches:
+      - '**'
 
 jobs:
   docker:
@@ -18,7 +21,8 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: depot/build-push-action@v1
+      - name: Build Docker image (no push on non-main)
+        uses: depot/build-push-action@v1
         with:
           build-args: |
             PGBOUNCER_CHECKSUM=sha256:290bad449e4580f0174d3677c26c1076d4ce5dd7ca116ae1fca10272ef74d10e
@@ -27,5 +31,5 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           project: ${{ secrets.DEPOT_PROJECT_ID }}
-          push: true
-          tags: ghcr.io/viaeurope/pgbouncer:1.25.0
+          push: ${{ github.ref == 'refs/heads/main' }}
+          tags: ${{ github.ref == 'refs/heads/main' && 'ghcr.io/viaeurope/pgbouncer:1.25.0' || '' }}
