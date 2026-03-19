@@ -9,10 +9,10 @@ A lightweight Docker image for PgBouncer, a connection pooler for PostgreSQL dat
 ```bash
 $ docker pull ghcr.io/viaeurope/pgbouncer:$version
 $ docker run -it --rm ghcr.io/viaeurope/pgbouncer:$version pgbouncer --version
-PgBouncer 1.24.1
+PgBouncer 1.25.1
 libevent 2.1.12-stable
-adns: c-ares 1.27.0
-tls: OpenSSL 3.0.13 30 Jan 2024
+adns: c-ares 1.34.6
+tls: OpenSSL 3.5.5 27 Jan 2026
 ```
 
 ## Usage
