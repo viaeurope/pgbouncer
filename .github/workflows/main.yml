@@ -23,13 +23,12 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Load build args from .env
         run: |
-          grep -E '^(PGBOUNCER_TAG|PGBOUNCER_VERSION|PGBOUNCER_CHECKSUM)=' .env >> "$GITHUB_ENV"
+          grep -E '^(PGBOUNCER_VERSION|PGBOUNCER_CHECKSUM)=' .env >> "$GITHUB_ENV"
       - name: Build Docker image (no push on non-main)
         uses: depot/build-push-action@v1
         with:
           build-args: |
             PGBOUNCER_CHECKSUM=${{ env.PGBOUNCER_CHECKSUM }}
-            PGBOUNCER_TAG=${{ env.PGBOUNCER_TAG }}
             PGBOUNCER_VERSION=${{ env.PGBOUNCER_VERSION }}
           context: .
           platforms: linux/amd64,linux/arm64
