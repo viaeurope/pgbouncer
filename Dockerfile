@@ -1,6 +1,5 @@
 FROM ubuntu:26.04 AS base
 
-ARG PGBOUNCER_TAG
 ARG PGBOUNCER_VERSION
 ARG PGBOUNCER_CHECKSUM
 
@@ -10,7 +9,7 @@ RUN apt-get update -qq && \
   build-essential libevent-dev pkg-config libssl-dev libc-ares-dev libpam-modules python3 pandoc
 
 ADD --checksum=${PGBOUNCER_CHECKSUM} --link \
-  https://github.com/pgbouncer/pgbouncer/releases/download/pgbouncer_${PGBOUNCER_TAG}/pgbouncer-${PGBOUNCER_VERSION}.tar.gz \
+  https://www.pgbouncer.org/downloads/files/${PGBOUNCER_VERSION}/pgbouncer-${PGBOUNCER_VERSION}.tar.gz \
   pgbouncer.tar.gz
 
 RUN tar -xvf pgbouncer.tar.gz && \
