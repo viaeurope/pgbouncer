@@ -1,4 +1,4 @@
-FROM ubuntu:26.04 AS base
+FROM ubuntu:24.04 AS base
 
 ARG PGBOUNCER_VERSION
 ARG PGBOUNCER_CHECKSUM
@@ -18,7 +18,7 @@ RUN tar -xvf pgbouncer.tar.gz && \
   make  && \
   make install
 
-FROM ubuntu:26.04
+FROM ubuntu:24.04
 
 # Install runtime dependencies
 # we like scripting with ruby
